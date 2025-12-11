@@ -1,0 +1,35 @@
+{
+  "nome": "Barbearia Brothers",
+  "cidade": "São Luís",
+  "estado": "Maranhão",
+  "bairro": "Cohatrac",
+  "endereco": "Rua principal do Cohatrac, São Luís - MA",
+  
+  "horarios": {
+    "segunda_sexta": "09:00 - 19:00",
+    "sabado": "08:00 - 17:00",
+    "domingo": "Fechado"
+  },
+
+  "servicos": [
+    { "nome": "Corte Masculino", "preco": 30 },
+    { "nome": "Barba", "preco": 25 },
+    { "nome": "Corte + Barba", "preco": 50 },
+    { "nome": "Sobrancelha", "preco": 10 },
+    { "nome": "Hidratação", "preco": 20 },
+    { "nome": "Tintura Simples", "preco": 40 }
+  ],
+
+  "barbeiros": [
+    { "nome": "Lucas", "especialidade": "Fade e barba detalhada" },
+    { "nome": "João", "especialidade": "Corte infantil e social" },
+    { "nome": "Marcos", "especialidade": "Designer de barba e sombreado" }
+  ],
+
+  "politica": {
+    "atraso_tolerado": "10 minutos",
+    "cancelamento": "Avisar com 1 hora de antecedência"
+  },
+
+  "estilo_ia": "A IA deve responder de forma simpática, objetiva, rápida e profissional. Pode sugerir serviços, oferecer horários e auxiliar no agendamento."
+}

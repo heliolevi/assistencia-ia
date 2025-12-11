@@ -1,0 +1,5 @@
+- Horário de funcionamento: segunda a sábado das 08h às 20h.
+- Trabalhamos com hora marcada e encaixes quando há disponibilidade.
+- Aceitamos Pix, débito, crédito e pagamento antecipado de pacotes.
+- Todos os profissionais são certificados e especializados.
+- Atrasos acima de 10 minutos podem gerar reagendamento automático.

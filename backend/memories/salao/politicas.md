@@ -1,0 +1,4 @@
+- Atrasos acima de 10 minutos podem resultar em perda do horário.
+- Cancelamentos devem ser comunicados com 2h de antecedência.
+- Serviços químicos exigem teste de mecha antes da execução.
+- Pacotes e combos não são reembolsáveis após uso parcial.

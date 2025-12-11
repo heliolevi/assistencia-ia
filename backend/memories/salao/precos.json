@@ -1,0 +1,12 @@
+{
+  "corte_masculino": 35,
+  "corte_feminino": { "min": 45, "max": 80 },
+  "barba": 25,
+  "sobrancelha": 15,
+  "hidratacao": 40,
+  "progressiva": { "min": 120, "max": 250 },
+  "luzes": { "min": 180, "max": 350 },
+  "spa_capilar": 70,
+  "combo_corte_barba": 55,
+  "combo_black": 120
+}
