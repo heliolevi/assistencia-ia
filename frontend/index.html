@@ -2,20 +2,47 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistente IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Barbearia Brothers - Assistente Virtual</title>
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="chat-container">
-        <h2>Assistente IA</h2>
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="avatar">
+                💈
+            </div>
+            <div class="header-info">
+                <h2>Barbearia Brothers</h2>
+                <span class="status">● Online agora</span>
+            </div>
+        </div>
 
-        <div id="chat-box" class="chat-box"></div>
+        <!-- Chat Area -->
+        <div id="chat-box" class="chat-box">
+            <!-- Initial welcome message -->
+            <div class="message-wrapper bot-wrapper">
+                <div class="message bot-message">
+                    Olá! Sou o assistente virtual da <b>Barbearia Brothers</b>. Em que posso te ajudar hoje? Posso informar nossos preços, serviços ou agendar um horário para você!
+                </div>
+            </div>
+        </div>
 
+        <!-- Input Area -->
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Digite sua mensagem...">
-            <button onclick="sendMessage()">Enviar</button>
+            <input type="text" id="user-input" placeholder="Digite sua mensagem aqui..." autocomplete="off">
+            <button onclick="sendMessage()" id="send-button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
         </div>
     </div>
 

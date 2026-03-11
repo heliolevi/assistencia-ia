@@ -1,33 +1,80 @@
 const API_URL = "http://localhost:5000/api/chat";
 
+// Allow pressing enter to send
+document.getElementById('user-input').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
 async function sendMessage() {
     const input = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
+    const sendButton = document.getElementById("send-button");
 
     const message = input.value.trim();
     if (!message) return;
 
-    // Exibe mensagem do usuário
-    chatBox.innerHTML += `<p class="user-message"><b>Você:</b> ${message}</p>`;
+    // Remove text, disable button and show user message
     input.value = "";
+    sendButton.disabled = true;
+    sendButton.style.opacity = "0.5";
+
+    chatBox.innerHTML += `
+        <div class="message-wrapper user-wrapper">
+            <div class="message user-message">${message}</div>
+        </div>
+    `;
+    scrollToBottom();
+
+    // Show temporary typing indicator
+    const typingId = "typing-" + Date.now();
+    chatBox.innerHTML += `
+        <div id="${typingId}" class="message-wrapper bot-wrapper">
+            <div class="message bot-message" style="color: var(--text-muted); font-style: italic;">Digitando...</div>
+        </div>
+    `;
+    scrollToBottom();
 
     try {
-        // Envia para o backend
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({
+                message,
+                sessionId: "cliente-browser-001" // Can be random generated per page load later
+            })
         });
 
         const data = await response.json();
+        
+        // Remove typing indicator
+        document.getElementById(typingId).remove();
 
-        console.log("🔎 Backend:", data);
-
-        // Exibe resposta da IA
-        chatBox.innerHTML += `<p class="bot-message"><b>IA:</b> ${data.reply || "Erro: resposta vazia"}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        // Print real response (replacing newlines with <br> for proper formatting)
+        const formattedReply = (data.reply || "Erro: resposta vazia").replace(/\n/g, '<br>');
+        chatBox.innerHTML += `
+            <div class="message-wrapper bot-wrapper">
+                <div class="message bot-message">${formattedReply}</div>
+            </div>
+        `;
 
     } catch (error) {
-        chatBox.innerHTML += `<p class="bot-message"><b>IA:</b> Erro ao conectar ao servidor.</p>`;
+        document.getElementById(typingId).remove();
+        chatBox.innerHTML += `
+            <div class="message-wrapper bot-wrapper">
+                <div class="message bot-message" style="color: #f85149;">Erro ao conectar ao servidor.</div>
+            </div>
+        `;
+    } finally {
+        sendButton.disabled = false;
+        sendButton.style.opacity = "1";
+        input.focus();
+        scrollToBottom();
     }
+}
+
+function scrollToBottom() {
+    const chatBox = document.getElementById("chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }

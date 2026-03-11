@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
-import fs from "fs";
+import { loadMemory } from "./readMemory.js";
 
 dotenv.config();
 
@@ -10,29 +10,31 @@ const groq = new Groq({
 });
 
 // Carrega memória da barbearia
-const memoryPath = "./memory/barbearia.json";
-let barberMemory = {};
+const barbershopContext = loadMemory();
 
-if (fs.existsSync(memoryPath)) {
-    barberMemory = JSON.parse(fs.readFileSync(memoryPath, "utf8"));
-}
-
-export async function askAI(prompt) {
+export async function askAI(prompt, session) {
     try {
         console.log("🔎 Usuário perguntou:", prompt);
 
         const systemMessage = `
 VOCÊ É O ASSISTENTE OFICIAL DA BARBEARIA BROTHERS.
 
-Use SOMENTE as informações abaixo para responder perguntas:
+REGRAS ABSOLUTAS (NUNCA QUEBRE):
+- NÃO se reapresente após a primeira resposta.
+- NÃO pergunte novamente informações que já estejam preenchidas na memória do cliente.
+- NÃO mostre o estado da conversa ou dados internos ao cliente.
+- SE o cliente repetir algo já informado, apenas confirme e avance.
+- SE o cliente fizer uma pergunta fora do fluxo, responda e depois retome o fluxo.
+- SEJA natural, direto e humano. Sem textos longos ou repetitivos.
+- SEJA conciso. Responda em no máximo 2 parágrafos curtos.
+- Você deve conduzir o cliente até o agendamento completo (nome, serviço, data, horário).
 
-${JSON.stringify(barberMemory, null, 2)}
+CONTEXTO DA BARBEARIA:
+${barbershopContext}
 
-IMPORTANTE:
-- Responda sempre de forma simpática, objetiva e profissional.
-- Use preços, horários, serviços e políticas exatamente como estão na memória.
-- Se o usuário perguntar algo fora da memória, diga que não sabe e peça para reforçar a pergunta.
-        `;
+MEMÓRIA ATUAL DO CLIENTE (VERDADE ABSOLUTA):
+${JSON.stringify(session, null, 2)}
+`;
 
         const response = await groq.chat.completions.create({
             model: "llama-3.1-8b-instant",
